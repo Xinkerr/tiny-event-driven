@@ -1,3 +1,10 @@
+﻿/****************************************************
+Date：  2019/8/5
+Author: 鄭訫
+Github: https://github.com/Xinkerr/tiny-event-driver
+****************************************************/
+
+
 #include "eQueque.h"
 #include <string.h>
 //#include <assert.h>

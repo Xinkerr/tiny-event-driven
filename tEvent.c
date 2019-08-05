@@ -1,3 +1,9 @@
+/****************************************************
+Date£∫  2019/8/5
+Author: ‡ç‘M
+Github: https://github.com/Xinkerr/tiny-event-driver
+****************************************************/
+
 #include "tEvent.h"
 
 #define _TIMER_ON			1
