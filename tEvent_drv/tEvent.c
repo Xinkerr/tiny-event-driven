@@ -113,17 +113,6 @@ int8_t tEvent_ctreate(uint8_t event_id, _TIME_INT period)
 	{
 		return -1;
 	}
-	else if(event_id != 1)
-	{
-		uint8_t i;
-        //检索一边前面数据的是否存在还未创建事件ID
-        //保证创建的顺序连续性
-		for(i = 0; i < event_id-1; i++)
-		{
-			if(timer_event[i].id == 0)
-				return -1;
-		}
-	}
 	id_index = event_id - 1;
 	timer_event[id_index].id = event_id;
 	timer_event[id_index].period = period;
@@ -177,7 +166,7 @@ void tEvent_timer_ticking(void)
 	uint8_t i;
 	for(i = 0; i < EVENT_QUE_SIZE; i++)
 	{
-        //事件ID表示后面的事件控制块都未使用
+        //判断是否为有效事件
 		if(timer_event[i].id != 0)
 		{
             //判断该事件控制块是否打开软件定时器
@@ -199,10 +188,6 @@ void tEvent_timer_ticking(void)
                     #endif
 				}
 			}
-		}
-		else
-		{
-			return;
 		}
 	}
 }
@@ -253,10 +238,6 @@ uint8_t tEvent_priority_get(void)
 					index_tmp = i;
 				}
 			}
-		}
-		else
-		{
-			break;
 		}
 	}
 	
@@ -444,8 +425,6 @@ void tEvent_sleep(void)
             timer_event[i].save_state = timer_event[i].running;
             timer_event[i].running = 0;
         }
-        else 
-            break;
     }
     //休眠指令
     SLEEP_COMMAND();
@@ -470,8 +449,6 @@ void tEvent_resume_work(void)
             timer_event[i].running = timer_event[i].save_state;
             timer_event[i].save_state = 0;
         }
-        else 
-            break;
     }
 }
 
